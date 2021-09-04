@@ -1,4 +1,4 @@
-const initState = {
+const defaultState = {
   user: {},
   auth: false
 }
@@ -10,7 +10,7 @@ const ActionType = {
 }
 
 // Reducer
-export default function userReducer(state = initState, action) {
+export default function usersReducer(state = defaultState, action) {
   switch (action.type) {
     case ActionType.SET_USER:
       return {

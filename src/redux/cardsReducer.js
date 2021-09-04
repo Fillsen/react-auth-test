@@ -1,28 +1,28 @@
-const initState = {
-  cards: {},
+const defaultState = {
+  cards: [],
 }
 
 // Action Types
 const ActionType = {
   SET_CARDS: 'SET_CARDS',
-  ADD_CARDS: 'ADD_CARDS',
-  REMOVE_CARDS: 'REMOVE_CARDS'
+  ADD_CARD: 'ADD_CARD',
+  DELETE_CARD: 'DELETE_CARD'
 }
 
 // Reducer
-export default function cardsReducer(state = initState, action) {
+export default function cardsReducer(state = defaultState, action) {
   switch (action.type) {
     case ActionType.SET_CARDS:
       return {
         ...state,
         cards: action.payload,
       }
-    case ActionType.ADD_CARDS:
+    case ActionType.ADD_CARD:
       return {
         ...state,
         cards: action.payload,
       }
-    case ActionType.REMOVE_CARDS:
+    case ActionType.DELETE_CARD:
       return {
         ...state,
         cards: action.payload,
@@ -33,22 +33,22 @@ export default function cardsReducer(state = initState, action) {
 }
 
 // Action Creator
-export const UserAction = {
-  setCards: (card) => {
+export const CardAction = {
+  setCards: (cards) => {
     return {
       type: ActionType.SET_CARDS,
+      payload: cards
+    }
+  },
+  addCard: (card) => {
+    return {
+      type: ActionType.ADD_CARD,
       payload: card
     }
   },
-  addCards: (card) => {
+  delCard: (card) => {
     return {
-      type: ActionType.ADD_CARDS,
-      payload: card
-    }
-  },
-  removeCards: (card) => {
-    return {
-      type: ActionType.REMOVE_CARDS,
+      type: ActionType.DELETE_CARD,
       payload: card
     }
   },

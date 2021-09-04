@@ -5,11 +5,11 @@ import {composeWithDevTools} from "redux-devtools-extension";
 import thunk from "redux-thunk";
 // Reducers
 import cardsReducer from "./cardsReducer";
-import userReducer from "./userReducer";
+import usersReducer from "./usersReducer";
 
 const rootReducer = combineReducers({
   cards: cardsReducer,
-  users: userReducer
+  users: usersReducer
 })
 
 export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
