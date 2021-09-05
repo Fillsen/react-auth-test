@@ -13,9 +13,8 @@ export function registration(username, email, password) {
         email,
         password
       })
-      localStorage.setItem('token', request.data.token)
-      dispatch(UserAction.setUser())
-      console.log('REG COMPLETE, YOUR JWT TOKEN', request.data.token)
+      localStorage.setItem('token', `JWT ${request.data.token}`) && dispatch(UserAction.setUser())
+      console.log('REG COMPLETE', request.data.token)
     } catch (e) {
       e.request.status === 400 && console.log('400 ERROR')
       console.log('REG ERROR', e.request.response);
@@ -30,8 +29,7 @@ export function login(username, password) {
         username,
         password
       })
-      localStorage.setItem('token', request.data.token)
-      dispatch(UserAction.setUser())
+      localStorage.setItem('token', `JWT ${request.data.token}`) && dispatch(UserAction.setUser())
       console.log('LOGIN SUCCESS', request.data)
     } catch (e) {
       console.log('LOGIN ERROR', e.request)
