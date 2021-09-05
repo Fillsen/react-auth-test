@@ -19,9 +19,10 @@ export default function Registration() {
     email: Yup.string().email('Enter valid email'),
     password: Yup.string().min(8, 'Min 8 characters').max(128, 'Max 128 characters').required('Required')
   })
-  const handleSubmit = (values, props) => {
-    dispatch(registration(values.username, values.email, values.password))
-    console.log(values)
+  const handleSubmit = async (values, props) => {
+    const submit = await dispatch(registration(values.username, values.email, values.password))
+    console.log(props)
+    return submit
   }
 
   return (
@@ -35,6 +36,7 @@ export default function Registration() {
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
           {(props) => (
             <Form>
+              {/* Username Field */}
               <div>
                 <label className='text-sm font-bold text-gray-600 block'>Username*</label>
                 <Field
@@ -43,11 +45,12 @@ export default function Registration() {
                   name='username'
                   value={props.values.username}
                   onChange={props.handleChange}
-                  required
                 />
                 {props.errors.username && props.touched.username ?
                   <div className='text-red-700'><ErrorMessage name='username'/></div> : null}
               </div>
+              {/* Username Field */}
+              {/* Email Field */}
               <div>
                 <label className='mt-4 text-sm font-bold text-gray-600 block'>Email</label>
                 <Field
@@ -61,25 +64,31 @@ export default function Registration() {
                 {props.touched.email && props.errors.email ?
                   <div className='text-red-700'><ErrorMessage name='email'/></div> : null}
               </div>
+              {/* Email Field */}
+              {/* Password Field */}
               <div>
                 <label className='mt-4 text-sm font-bold text-gray-600 block'>Password*</label>
                 <Field
                   className='w-full p-2 border border-gray-300 rounded mt-1'
                   style={{borderColor: props.errors.password && props.touched.password ? 'red' : ''}}
+                  type='Password'
                   name='password'
                   value={props.values.password}
                   onChange={props.handleChange}
-                  required
                 />
                 {props.errors.password && props.touched.password ?
                   <div className='text-red-700'><ErrorMessage name='password'/></div> : null}
               </div>
+              {/* Password Field */}
+              {/* Bottom form */}
               <div className="mt-4 flex items-center justify-between">
                 <div className="flex items-center">
                   <div className="text-sm text-gray-600">Already have an account?</div>
                 </div>
                 <Link to='/login' className="text-sm text-blue-500">Sign In</Link>
               </div>
+              {/* Bottom form */}
+              {/* Submit */}
               <div>
                 <button
                   className='w-full mt-4 py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-sm transition duration-300'
@@ -87,6 +96,7 @@ export default function Registration() {
                   Create Account
                 </button>
               </div>
+              {/* Submit */}
             </Form>
           )
           }

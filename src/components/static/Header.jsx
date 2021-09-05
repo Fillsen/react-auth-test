@@ -1,7 +1,18 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {auth} from "../../redux/api/users";
 
 export const Header = () => {
+  const isAuth = useSelector((state) => state.users.auth);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!isAuth) {
+      dispatch(auth());
+    }
+  }, [dispatch, isAuth]);
+
   return (
     <nav className='bg-gray-100'>
       <div className="max-w-6xl mx-auto px-4">
@@ -44,17 +55,20 @@ export const Header = () => {
             </div>
             {/* Menu end */}
           </div>
-          {/* Right Side */}
-          <div className='hidden md:flex items-center space-x-3'>
-            <Link className='py-5 px-3' to='/login'>Login</Link>
-            <Link
-              to='/register'
-              className='py-2 px-3 bg-blue-400 text-white rounded hover:bg-blue-500 transition duration-300'>
-              Signup
-            </Link>
-          </div>
-          {/* Right Side end */}
-          
+          {/* Auth buttons */}
+          {isAuth ? (
+            <div className='hidden'>You authorized</div>
+          ) : (
+            <div className='hidden md:flex items-center space-x-3'>
+              <Link className='py-5 px-3' to='/login'>Login</Link>
+              <Link
+                to='/register'
+                className='py-2 px-3 bg-blue-400 text-white rounded hover:bg-blue-500 transition duration-300'>
+                Signup
+              </Link>
+            </div>
+          )}
+          {/* Auth buttons end */}
           {/* Mobile Nav */}
           <div className='md:hidden flex items-center'>
             <button className='mobile-menu-button'>

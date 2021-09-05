@@ -18,9 +18,10 @@ export default function Login() {
     password: Yup.string().min(8, 'Min 8 characters').max(128, 'Max 128 characters').required('Required')
   })
 
-  const handleSubmit = (values, props) => {
-    dispatch(login(values.username, values.password))
+  const handleSubmit = async (values, props) => {
+    const submit = await dispatch(login(values.username, values.password))
     console.log(values)
+    return submit
   }
 
   return (
@@ -34,6 +35,7 @@ export default function Login() {
         <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
           {(props) => (
             <Form>
+              {/* Username Field */}
               <div>
                 <label className='text-sm font-bold text-gray-600 block'>Username*</label>
                 <Field
@@ -42,30 +44,35 @@ export default function Login() {
                   name='username'
                   value={props.values.username}
                   onChange={props.handleChange}
-                  required
                 />
                 {props.errors.username && props.touched.username ?
                   <div className='text-red-700'><ErrorMessage name='username'/></div> : null}
               </div>
+              {/* Username Field */}
+              {/* Password Field */}
               <div>
                 <label className='mt-4 text-sm font-bold text-gray-600 block'>Password*</label>
                 <Field
                   className='w-full p-2 border border-gray-300 rounded mt-1'
                   style={{borderColor: props.errors.password && props.touched.password ? 'red' : ''}}
                   name='password'
+                  type='Password'
                   value={props.values.password}
                   onChange={props.handleChange}
-                  required
                 />
                 {props.errors.password && props.touched.password ?
                   <div className='text-red-700'><ErrorMessage name='password'/></div> : null}
               </div>
+              {/* Password Field */}
+              {/* Bottom form */}
               <div className="mt-4 flex items-center justify-between">
                 <div className="flex items-center">
                   <div className="text-sm text-gray-600">Need account?</div>
                 </div>
                 <Link to='/register' className="text-sm text-blue-500">Sign Up</Link>
               </div>
+              {/* Bottom form */}
+              {/* Submit */}
               <div>
                 <button
                   className='w-full mt-4 py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-sm transition duration-300'
@@ -73,6 +80,7 @@ export default function Login() {
                   Log In
                 </button>
               </div>
+              {/* Submit */}
             </Form>
           )
           }
