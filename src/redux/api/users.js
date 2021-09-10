@@ -31,6 +31,7 @@ export function login(username, password) {
       })
       localStorage.setItem('token', `JWT ${request.data.token}`) && dispatch(UserAction.setUser())
       console.log('LOGIN SUCCESS', request.data)
+      console.log(request.status)
     } catch (e) {
       console.log('LOGIN ERROR', e.request)
     }

@@ -1,6 +1,21 @@
-const defaultState = {
-  cards: [],
-}
+const defaultState = [
+  {
+    title: 'ON HOLD',
+    cards: []
+  },
+  {
+    title: 'IN PROGRESS',
+    cards: []
+  },
+  {
+    title: 'NEED REVIEW',
+    cards: []
+  },
+  {
+    title: 'APPROVED',
+    cards: []
+  },
+]
 
 // Action Types
 const ActionType = {

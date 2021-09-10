@@ -18,10 +18,10 @@ export default function Login() {
     password: Yup.string().min(8, 'Min 8 characters').max(128, 'Max 128 characters').required('Required')
   })
 
-  const handleSubmit = async (values, props) => {
-    const submit = await dispatch(login(values.username, values.password))
+  const handleSubmit = (values, props) => {
+    dispatch(login(values.username, values.password))
     console.log(values)
-    return submit
+    props.resetForm()
   }
 
   return (
@@ -76,7 +76,8 @@ export default function Login() {
               <div>
                 <button
                   className='w-full mt-4 py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded-md text-white text-sm transition duration-300'
-                  type='submit'>
+                  type='submit'
+                >
                   Log In
                 </button>
               </div>
